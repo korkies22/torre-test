@@ -30,6 +30,19 @@ body {
   }
 }
 
+.circle {
+  color: $black;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  background: $accent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+}
+
 input[type='checkbox'] {
   display: none;
 
