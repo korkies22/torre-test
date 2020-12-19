@@ -1,9 +1,9 @@
 export default {
-  email(state) {
-    return state.email
+  username(state) {
+    return state.username
   },
-  tokenData(state) {
-    return state.tokenData
+  token(state) {
+    return state.token
   },
   timeoutRefreshToken(state) {
     return state.timeoutRefreshToken

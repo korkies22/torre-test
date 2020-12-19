@@ -1,7 +1,7 @@
 export default () => ({
-  username: '', // Email del usuario
-  tokenData: {}, // Información del token, principalmente idToken y accessToken
-  isAuth: false, // Si el usuario se encuentra autenticado o no
-  timeoutRefreshToken: null, // Timeout para refrescar el token, se guarda para poderse cancelar de ser necesario
-  rememberMe: true, // Indica si el usuario le dió a "Recuerdame" en el login, si es false no se carga la info del token del localStorage
+  username: '', // Username from user
+  token: {}, // Token used to validate the user against the backend
+  isAuth: false, // If user is currently auth or not
+  timeoutRefreshToken: null, // Timeout for refreshing token, it is stored in order to be cancelled if necessary
+  rememberMe: true, // If user set "Remember me" in login, if it is false, then the token is not set to refresh
 })

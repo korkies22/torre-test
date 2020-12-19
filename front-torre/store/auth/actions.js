@@ -1,30 +1,31 @@
-// Esta función recibe en data la información de un token, la persiste en el localStorage y programa que en 55 minutos se refresque el token
+// This function receives in data the token info, it stores the info in localStorage and programs 55 minutes for token refreshing
 const handleTokenResp = (data, commit, dispatch, axios, getters) => {
-  // Configura el módulo de axios para que el token se utilice en todas las peticiones
+  // Axios module is configured so that the token is used in every request
   axios.setToken(data.token)
 
-  localStorage.setItem('tokenData', JSON.stringify(data))
+  localStorage.setItem('token', JSON.stringify(data.token))
   localStorage.setItem('rememberMe', getters.rememberMe)
-  /** El tokenTimeout se guarda como 55 minutos a partir de ahora para que se tenga esos 5 minutos de rango 
-   en los cuales hacer un refresh antes que el token deje de ser inválido */
+  /** tokenTimeout sets 55 minutes from now so that there are 5 minutes left in where a
+   * request is made before the current token is invalidated */
   localStorage.setItem(
     'tokenTimeout',
     new Date(new Date().getTime() + 55 * 60 * 1000)
   )
-  localStorage.setItem('username', getters.username)
+  localStorage.setItem('username', data.username)
 
-  // Guarda la info de un usuario en el store
+  data = data.token
+  // Stores user info in storage
   commit('login', data)
-  // En 55 minutos se hace un refreshToken
+  // In 55 minutes the token gets refreshed
   const timeout = setTimeout(
     () => refreshData(commit, dispatch, axios, getters),
     55 * 60 * 1000
   )
-  // Se guarda este timeout para cancelarlo en caso de cerrar sesión
+  // This timeout gets saved so it can be cancelled later
   commit('setTimeoutRefresh', timeout)
 }
 
-// Esta función hace un llamado a refreshToken y luego persiste la información con handleTokenResp
+// This function calls refreshToken in backend an persist info with handleTokenResp
 const refreshData = (
   commit,
   dispatch,
@@ -36,14 +37,14 @@ const refreshData = (
   return axios
     .$post(`auth/refreshToken`, {
       username: username || getters.username,
-      refreshToken: refreshToken || getters.tokenData.refreshToken,
+      refreshToken: refreshToken || getters.token.refreshToken,
     })
     .then((refreshedData) => {
-      // Se persiste la información
+      // Info gets persisted
       handleTokenResp(refreshedData, commit, dispatch, axios, getters)
     })
     .catch((e) => {
-      // En caso de error, logout
+      // In case of error, logout
       dispatch('logout')
     })
 }
@@ -52,45 +53,45 @@ export default {
   setUsername({ commit }, data) {
     commit('setUsername', data)
   },
-  // Esta función se encarga de buscar si un usuario está logueado con sus datos persistidos en el localStorage
+  // This functions search user info in localStorage
   initAuth({ commit, dispatch, getters }) {
-    let tokenData = localStorage.getItem('tokenData')
+    let token = localStorage.getItem('token')
     let rememberMe = localStorage.getItem('rememberMe')
     rememberMe = rememberMe === 'true' || rememberMe === true
     commit('setRememberMe', rememberMe)
 
-    // Si no hay datos o ya se encontraba autenticado, return
-    if (!tokenData || getters.isAuth) {
+    // If no data or user was already auth, return
+    if (!token || getters.isAuth) {
       return
     }
-    tokenData = JSON.parse(tokenData)
+    token = JSON.parse(token)
     const tokenTimeout = localStorage.getItem('tokenTimeout')
 
     const username = localStorage.getItem('username')
     const expirationDate = +new Date(tokenTimeout)
     const timeDiff = expirationDate - new Date().getTime()
 
-    // Si al iniciar sesión no puso "recuerdame", return
+    // If "remember me" is not set, return
     if (!rememberMe) return
 
     commit('setUsername', username)
-    // Mira si el token ya expiró. Se indica que expira faltando 5 minutos para su verdadera expiración (revisar handleTokenResp)
+    // Checks if token expired. Expiration time set to 55 minutes (check handleTokenResp)
     if (!tokenTimeout || timeDiff <= 0) {
-      // Si expiró hace un refreshToken
+      // If expired, tries to refreshToken
       return refreshData(
         commit,
         dispatch,
         this.$axios,
         getters,
         username,
-        tokenData.refreshToken
+        token.refreshToken
       )
     }
-    // Configura el módulo de axios para utiliza el token en cada petición
-    this.$axios.setToken(tokenData.token)
-    commit('login', tokenData)
-    /** Si el token no expiró, entonces se configura el timeout como el tiempo restante.
-     * Recordar que este timeout se guardó como 5 minutos antes que el token expire */
+    // Axios module gets configured to use token
+    this.$axios.setToken(token.token)
+    commit('login', token)
+    /** If token isn't expired, then timeout is the time left.
+     * Remember that this initial timeout was set to 5 minutes before the first hour of token validity */
 
     const timeout = setTimeout(
       () => refreshData(commit, dispatch, this.$axios, getters),
@@ -99,15 +100,16 @@ export default {
     commit('setTimeoutRefresh', timeout)
   },
   login({ commit, dispatch, getters }, data) {
+    commit('setUsername', data.username)
     handleTokenResp(data, commit, dispatch, this.$axios, getters)
   },
-  // Al hacer logout se limpia el timeout de refreshToken, se deja de enviar en cada petición y se eliminan los datos del localStorage
+  // At logout refreshToken timeout is cleared, token is also removed from axios requests and localStorage is removed too
   logout({ commit, getters }) {
     clearTimeout(getters.timeoutRefreshToken)
     this.$axios.setToken(false)
     commit('setTimeoutRefresh', null)
     commit('logout')
-    localStorage.removeItem('tokenData')
+    localStorage.removeItem('token')
     localStorage.removeItem('tokenTimeout')
     localStorage.removeItem('username')
   },

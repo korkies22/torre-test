@@ -1,30 +1,4 @@
-$darkBlue: #0c0296;
 $black: #27292d;
 $white: #efefef;
 $accent: #cddc39;
-$blue: #5648ff;
-$green: #5decbd;
-$yellow: #ffbf2e;
-$grey: #e3e1e1;
-$darkGrey: #c4c4c4;
-$darkGrey2: #b9b9b9;
-$darkGrey3: #c0c0c0;
-$darkGrey4: rgba(
-  $color: black,
-  $alpha: 0.5,
-);
-$lightGrey: #e5e5e5;
-$lightGrey2: rgba(
-  $color: #b9b9b9,
-  $alpha: 0.35,
-);
-$violet: rgba(
-  $color: #5548ff,
-  $alpha: 0.7,
-);
-$violetLight: #887ffe;
-$gradientBlackPurple: linear-gradient($black, $violet);
-$acceptedState: #5decbd;
-$pendingState: #0c0296;
-$counterofferedState: #ffbf2e;
-$cancelofferedState: #a11b1b;
+$error: #d50000;

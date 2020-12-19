@@ -55,10 +55,9 @@
       border-radius: 17px;
       border: solid 5px transparent;
       background-image: linear-gradient(
-          rgba($color: #fff, $alpha: 0),
-          rgba($color: #fff, $alpha: 0)
-        ),
-        linear-gradient($green, $darkBlue);
+        rgba($color: #fff, $alpha: 0),
+        rgba($color: #fff, $alpha: 0)
+      );
       background-origin: border-box;
       background-clip: content-box, border-box;
       box-shadow: 2px 1000px 1px #fff inset;

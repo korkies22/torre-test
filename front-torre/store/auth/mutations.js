@@ -2,15 +2,14 @@ export default {
   setUsername(state, data) {
     state.username = data
   },
-  // Aquí se incluyen los datos del usuario y de autenticación generales, se elimina el rol porque este se guarda en otra mutación
+  // Here data from the user is included
   login(state, data) {
-    delete data.role
-    state.tokenData = data
+    state.token = data
     state.isAuth = true
   },
-  // En logout se limpian los datos
+  // At logout data gets cleared
   logout(state) {
-    state.tokenData = {}
+    state.token = {}
     state.username = null
     state.isAuth = false
   },

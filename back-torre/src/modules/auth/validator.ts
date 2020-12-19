@@ -6,7 +6,10 @@ export const validate = (
   switch (method) {
     case 'login': {
       return [
-        body('username', 'You have to enter a valid username').exists(),
+        body('username', 'You have to enter a valid username')
+          .exists()
+          .isLength({ min: 4 })
+          .withMessage('username should have at least 4 characters'),
         body('password', 'You have to enter a valid password')
           .exists()
           .isLength({ min: 6 })

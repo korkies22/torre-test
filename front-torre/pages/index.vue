@@ -3,8 +3,7 @@ ofertas recibidas, ofertas enviadas y facturas -->
 
 <template>
   <div class="main">
-    <p v-if="errorMsg" class="main__error">{{ errorMsg }}</p>
-    <nuxt-child></nuxt-child>
+    <h1>Groups</h1>
   </div>
 </template>
 
