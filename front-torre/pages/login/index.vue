@@ -26,7 +26,7 @@ export default {
       try {
         const login = await this.$axios.$post(`auth`, data)
         this.$store.dispatch('auth/login', login)
-        // this.$router.push('/')
+        this.$router.push('/')
       } catch (err) {
         this.errorMsg = parseError(err)
       }

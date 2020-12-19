@@ -24,15 +24,16 @@ export const login = async function (
     const password = req.body.password
     const user = await queries.findUser(username)
     if (!user) {
-      throw { message: 'User not found', statusCode: 404 }
+      throw { message: 'Wrong username or password', statusCode: 403 }
     }
     const isEqual = await checkPassword(password, user.password)
     if (!isEqual) {
       throw {
-        message: 'Wrong email or password',
+        message: 'Wrong username or password',
         statusCode: 403,
       }
     }
+
     const token = await createToken(user.username)
     res.send({
       username: user.username,
@@ -41,7 +42,6 @@ export const login = async function (
       refreshToken: user.refreshToken,
     })
   } catch (e) {
-    console.log(e)
     if (!e.statusCode) {
       throw {
         message:
@@ -72,6 +72,15 @@ export const createUser = async function (
       throw { message: 'User already exists', statusCode: 422 }
     }
 
+    const response = await fetch(`https://bio.torre.co/api/bios/${username}`, {
+      method: 'GET',
+    })
+    if (!response.ok) {
+      throw {
+        message: 'User must exist in Torre.co',
+        statusCode: 403,
+      }
+    }
     password = await hashPassword(password)
     const refreshToken = await createRefreshToken()
     user = await queries.createUser(username, password, refreshToken)
@@ -79,7 +88,6 @@ export const createUser = async function (
     const token = await createToken(user.username)
     res.send({ username: user.username, token, tokenTimeout: 12, refreshToken })
   } catch (e) {
-    console.log(e)
     if (!e.statusCode) {
       throw {
         message:
@@ -122,7 +130,6 @@ export const refreshToken = async function (
       refreshToken: user.refreshToken,
     })
   } catch (e) {
-    console.log(e)
     if (!e.statusCode) {
       throw {
         message:

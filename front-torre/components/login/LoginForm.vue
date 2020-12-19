@@ -44,6 +44,22 @@
         Password must be at least 6 characters long
       </p>
     </div>
+    <div v-if="$props.signup" class="loginForm__item">
+      <p class="loginForm__item--title">Confirm Password</p>
+      <input
+        v-model="confirmPassword"
+        type="password"
+        class="loginForm__input"
+        placeholder="Confirm Password"
+        maxlength="20"
+      />
+      <p
+        v-if="$v.confirmPassword.$dirty && !$v.confirmPassword.required"
+        class="loginForm__error"
+      >
+        Passwords should match
+      </p>
+    </div>
     <div class="loginForm__rememberMe">
       <input
         id="selectAll"
@@ -54,7 +70,7 @@
       />
       <label for="selectAll" class="loginForm__label">Remember me</label>
     </div>
-    <button class="loginForm__button">Login</button>
+    <button class="loginForm__button">{{ signup ? 'Signup' : 'Login' }}</button>
     <p v-if="$props.errorMsg" class="loginForm__error">
       {{ $props.errorMsg }}
     </p>
@@ -64,11 +80,15 @@
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
 export default {
-  props: { errorMsg: { type: String, default: '' } },
+  props: {
+    errorMsg: { type: String, default: '' },
+    signup: { type: Boolean, default: false },
+  },
   data() {
     return {
       username: '',
       password: '',
+      confirmPassword: '',
     }
   },
   computed: {
@@ -79,6 +99,9 @@ export default {
       set(value) {
         this.$store.commit('auth/setRememberMe', value)
       },
+    },
+    isSignup() {
+      return this.$props.signup
     },
   },
   methods: {
@@ -98,6 +121,11 @@ export default {
     password: {
       required,
       minLength: minLength(6),
+    },
+    confirmPassword: {
+      required(v, vm) {
+        return !vm.isSignup || vm.password === vm.confirmPassword
+      },
     },
   },
 }

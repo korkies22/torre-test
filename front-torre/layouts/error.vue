@@ -3,10 +3,10 @@
   <div class="layoutError">
     <div class="layoutError__background">
       <h1>404</h1>
-      <h3>Página no encontrada</h3>
-      <p>Parece que te has perdido</p>
+      <h3>Page not found</h3>
+      <p>Looks like you're lost</p>
       <div class="layoutError__button" @click="$router.push('/')">
-        <div class="layoutError__button-back">Volver a home</div>
+        <div class="layoutError__button-back">Go to home</div>
       </div>
     </div>
   </div>
@@ -17,7 +17,12 @@
   height: 100vh;
   width: 100%;
   &__background {
-    background: url('~@/assets/images/peopleWorking.jpg') no-repeat fixed center;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.9),
+        rgba(0, 0, 0, 0.7)
+      ),
+      url('~@/assets/images/peopleWorking.jpg') no-repeat fixed center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -32,17 +37,17 @@
     & h1 {
       font-size: 12rem;
       margin: 0;
-      color: $black;
+      color: $white;
     }
     & h3 {
       font-size: 2.3rem;
       margin: 0;
-      color: $black;
+      color: $white;
     }
     & p {
       font-size: 1rem;
       margin: 0;
-      color: $black;
+      color: $white;
     }
   }
   &__button {
@@ -60,7 +65,7 @@
       );
       background-origin: border-box;
       background-clip: content-box, border-box;
-      box-shadow: 2px 1000px 1px #fff inset;
+      box-shadow: 2px 1000px 1px $black inset;
       display: flex;
       justify-content: center;
       align-items: center;

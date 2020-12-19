@@ -1,17 +1,41 @@
 <template>
   <div class="loginPage">
     <div class="loginPage__main">
-      <h1 class="loginPage__title">Sign up to Torre groups</h1>
-      <LoginForm></LoginForm>
+      <h1 class="loginPage__title">Join Torre-groups</h1>
+      <LoginForm
+        :signup="true"
+        :error-msg="errorMsg"
+        @login="createUser"
+      ></LoginForm>
+      <nuxt-link class="loginPage__navigate" to="/login"
+        >Already joined? Go to login!</nuxt-link
+      >
     </div>
   </div>
 </template>
 
 <script>
 import LoginForm from '@/components/login/LoginForm'
-
+import { parseError } from '~/utils/error'
 export default {
   components: { LoginForm },
+  data() {
+    return {
+      errorMsg: null,
+    }
+  },
+  methods: {
+    async createUser(data) {
+      this.errorMsg = null
+      try {
+        const login = await this.$axios.$post(`auth/create`, data)
+        this.$store.dispatch('auth/login', login)
+        this.$router.push('/')
+      } catch (err) {
+        this.errorMsg = parseError(err)
+      }
+    },
+  },
 }
 </script>
 
@@ -27,12 +51,17 @@ export default {
   background-size: cover;
 
   &__main {
-    padding: 2rem;
+    padding: 2rem 2rem 1rem 2rem;
     width: 60%;
     background: $black;
-    height: 60%;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
     border-radius: 3px;
+  }
+
+  &__navigate {
+    text-align: center;
+    margin-top: 1rem;
+    display: block;
   }
 
   &__title {

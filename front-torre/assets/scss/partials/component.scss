@@ -1,7 +1,7 @@
 @mixin error {
   &__error {
     color: $error;
-    margin: 0.2rem 0 0 0;
+    margin: 0.4rem 0 0 0;
     font-size: 0.95rem;
   }
 }
