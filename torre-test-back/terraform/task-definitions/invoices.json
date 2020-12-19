@@ -1,0 +1,14 @@
+[
+  {
+    "name": "${var.project-name}-container-invoices",
+    "image": "${var.repository_url}",
+    "memoryReservation": 128,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "hostPort": 8080
+      }
+    ]
+  }
+]

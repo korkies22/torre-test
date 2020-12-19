@@ -1,0 +1,14 @@
+[
+  {
+    "name": "${var.project-name}-container-history",
+    "image": "${var.repository_url}",
+    "memoryReservation": 128,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 8087,
+        "hostPort": 8087
+      }
+    ]
+  }
+]

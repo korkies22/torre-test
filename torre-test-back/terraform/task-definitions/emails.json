@@ -1,0 +1,14 @@
+[
+  {
+    "name": "${var.project-name}-container-emails",
+    "image": "${var.repository_url}",
+    "memoryReservation": 128,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 8088,
+        "hostPort": 8088
+      }
+    ]
+  }
+]

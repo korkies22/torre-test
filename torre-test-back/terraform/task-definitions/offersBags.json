@@ -1,0 +1,14 @@
+[
+  {
+    "name": "${var.project-name}-container-offers-bags",
+    "image": "${var.repository_url}",
+    "memoryReservation": 128,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 8084,
+        "hostPort": 8084
+      }
+    ]
+  }
+]
