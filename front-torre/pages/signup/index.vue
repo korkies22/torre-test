@@ -1,7 +1,7 @@
 <template>
   <div class="loginPage">
     <div class="loginPage__main">
-      <h1 class="loginPage__title">Login to Torre-groups</h1>
+      <h1 class="loginPage__title">Sign up to Torre groups</h1>
       <LoginForm></LoginForm>
     </div>
   </div>
