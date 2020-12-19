@@ -1,7 +1,7 @@
 {
-  "name": "2matchback",
+  "name": "back-torre",
   "version": "1.0.0",
-  "description": "Backend de la aplicación 2Match",
+  "description": "Backend for Torre test",
   "main": "index.js",
   "dependencies": {
     "bcrypt": "^5.0.0",
