@@ -1,4 +1,9 @@
-# torre-test
+# Front torre
+
+This contains the frontend for the torre-test web dev challenge
+
+It uses the vuetify package for that material design look.
+It also uses stylelint and sass for better css handling
 
 ## Build Setup
 
