@@ -35,21 +35,6 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  transition-duration: 500ms;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)),
-    url('~@/assets/images/loginBackground.jpg') no-repeat fixed center;
-  background-size: cover;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  &__container {
-    width: 80%;
-    height: 100%;
-    background: $black;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
-    padding: 0 2rem;
-  }
+  @include page;
 }
 </style>

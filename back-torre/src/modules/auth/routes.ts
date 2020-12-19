@@ -11,4 +11,5 @@ router.post(
   exceptionHandler(auth.refreshToken)
 )
 router.post('/create', validate('login'), exceptionHandler(auth.createUser))
+
 router.post('/', validate('login'), exceptionHandler(auth.login))

@@ -3,17 +3,18 @@ const handleTokenResp = (data, commit, dispatch, axios, getters) => {
   // Axios module is configured so that the token is used in every request
   axios.setToken(data.token)
 
-  localStorage.setItem('token', JSON.stringify(data.token))
+  localStorage.setItem('token', data.token)
+  localStorage.setItem('refreshToken', data.refreshToken)
   localStorage.setItem('rememberMe', getters.rememberMe)
+  localStorage.setItem('username', data.username)
+  localStorage.setItem('user', JSON.stringify(data.user))
   /** tokenTimeout sets 55 minutes from now so that there are 5 minutes left in where a
    * request is made before the current token is invalidated */
   localStorage.setItem(
     'tokenTimeout',
     new Date(new Date().getTime() + 55 * 60 * 1000)
   )
-  localStorage.setItem('username', data.username)
 
-  data = data.token
   // Stores user info in storage
   commit('login', data)
   // In 55 minutes the token gets refreshed
@@ -55,7 +56,8 @@ export default {
   },
   // This functions search user info in localStorage
   initAuth({ commit, dispatch, getters }) {
-    let token = localStorage.getItem('token')
+    const token = localStorage.getItem('token')
+    const refreshToken = localStorage.getItem('refreshToken')
     let rememberMe = localStorage.getItem('rememberMe')
     rememberMe = rememberMe === 'true' || rememberMe === true
     commit('setRememberMe', rememberMe)
@@ -64,8 +66,8 @@ export default {
     if (!token || getters.isAuth) {
       return
     }
-    token = JSON.parse(token)
     const tokenTimeout = localStorage.getItem('tokenTimeout')
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const username = localStorage.getItem('username')
     const expirationDate = +new Date(tokenTimeout)
@@ -84,12 +86,12 @@ export default {
         this.$axios,
         getters,
         username,
-        token.refreshToken
+        refreshToken
       )
     }
     // Axios module gets configured to use token
-    this.$axios.setToken(token.token)
-    commit('login', token)
+    this.$axios.setToken(token)
+    commit('login', { token, refreshToken, user })
     /** If token isn't expired, then timeout is the time left.
      * Remember that this initial timeout was set to 5 minutes before the first hour of token validity */
 
@@ -112,5 +114,6 @@ export default {
     localStorage.removeItem('token')
     localStorage.removeItem('tokenTimeout')
     localStorage.removeItem('username')
+    localStorage.removeItem('user')
   },
 }

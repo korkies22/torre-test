@@ -4,7 +4,7 @@ Here people see the groups they're part in and can create new groups -->
 <template>
   <div class="groupsPage">
     <h1 class="groupsPage__title">Your groups</h1>
-    <div class="groupsPage__create">
+    <div class="groupsPage__create" @click="$router.push('/create-group')">
       <div class="circle">+</div>
       <p class="groupsPage__create--text">Create group</p>
     </div>

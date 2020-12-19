@@ -1,9 +1,5 @@
 // custom_typings/express/index.d.ts
-export interface AuthUser {
-  email: string
-  role: string
-  nit: string
-}
+export {}
 
 declare global {
   namespace NodeJS {
@@ -15,13 +11,11 @@ declare global {
   }
   namespace Express {
     interface Request {
-      user?: AuthUser
+      user?: string
     }
   }
   interface AuthUser {
-    email: string
-    role: string
-    nit: string
+    user: string
   }
 }
 

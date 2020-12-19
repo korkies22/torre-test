@@ -133,44 +133,14 @@ export default {
 
 <style lang="scss" scoped>
 .loginForm {
-  @include error;
+  @include formItem;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   &__button {
-    background: $accent;
-    border-radius: 3px;
-    font-weight: lighter;
-    color: $black;
-    padding: 0.4rem 2rem;
-    cursor: pointer;
-    font-size: 1.2rem;
-    border: none;
+    @include button;
     margin-top: 1rem;
-  }
-
-  &__input {
-    background: $black;
-    border: 1px solid white;
-    border-radius: 3px;
-    padding: 0.5rem 0.7rem;
-    margin: 0.2rem 0 0 0;
-    width: 100%;
-    font-size: 0.9rem;
-  }
-
-  &__item {
-    width: 100%;
-    display: inline-block;
-    padding: 0 5rem;
-    margin-bottom: 1rem;
-    &--title {
-      margin: 0;
-      color: $accent;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
   }
 
   &__rememberMe {

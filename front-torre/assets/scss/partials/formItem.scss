@@ -1,0 +1,43 @@
+@mixin formItem {
+  @include error;
+
+  &__input {
+    background: $black;
+    border: 1px solid white;
+    border-radius: 3px;
+    padding: 0.5rem 0.7rem;
+    margin: 0.2rem 0 0 0;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  &__button {
+    @include button;
+    margin-top: 0.2rem;
+  }
+
+  &__item {
+    width: 100%;
+    display: inline-block;
+    padding: 0 5rem;
+    margin-bottom: 1rem;
+
+    &--button {
+      @include button;
+      margin-left: 2rem;
+      margin-top: 0.2rem;
+    }
+
+    &--row {
+      display: flex;
+      align-items: center;
+    }
+
+    &--title {
+      margin: 0;
+      color: $accent;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+  }
+}

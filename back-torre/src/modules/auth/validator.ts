@@ -1,7 +1,12 @@
-import { body, ValidationChain, validationResult } from 'express-validator'
+import {
+  body,
+  header,
+  ValidationChain,
+  validationResult,
+} from 'express-validator'
 import { Middleware } from 'express-validator/src/base'
 export const validate = (
-  method: 'login' | 'refresh'
+  method: 'login' | 'refresh' | 'user'
 ): Array<ValidationChain | Middleware> => {
   switch (method) {
     case 'login': {
@@ -24,6 +29,9 @@ export const validate = (
           .withMessage('username should have at least 4 characters'),
         body('refreshToken', 'You must enter a valid refreshToken').exists(),
       ]
+    }
+    case 'user': {
+      return [header('authorization', 'Debe ingresar un token válido').exists()]
     }
   }
 }

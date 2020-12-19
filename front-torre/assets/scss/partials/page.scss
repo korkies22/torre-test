@@ -1,47 +1,58 @@
-// Main
+// Pages
 
-$mainWidth: 100vw;
 @mixin page {
   transition-duration: 500ms;
-  margin: 0 4rem;
-  min-height: 100vh;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)),
+    url('~@/assets/images/loginBackground.jpg') no-repeat fixed center;
+  background-size: cover;
+  height: 100vh;
   width: 100%;
-  height: 100%;
-  padding-left: 5rem;
-
-  &__error {
-    color: #a11b1b;
-    text-align: center;
-  }
-
-  &__leftArrow {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 1.5rem;
-    cursor: pointer;
-  }
-
-  &__top {
-    display: flex;
-    align-items: center;
-    margin: 2.5rem 0;
-
-    h1 {
-      margin: 0;
-    }
-  }
+  display: flex;
+  justify-content: center;
 
   &__title {
-    font-size: 1.5rem;
-    margin: 0 0 2.5rem 0;
+    text-align: center;
+    margin: 0;
   }
 
-  @media (max-width: 900px) {
-    padding-left: 3rem;
-    margin: 4rem 5rem;
-  }
+  &__container {
+    width: 80%;
+    height: 100%;
+    background: $black;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+    padding: 0 2rem;
+    overflow-y: auto;
 
-  @media (max-width: 780px) {
-    margin: 4rem 3rem;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 3px;
+    }
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+}
+
+@mixin subPage {
+  &__arrow {
+    font-size: 2rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    width: 2rem;
+  }
+  &__heading {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    justify-content: space-between;
   }
 }

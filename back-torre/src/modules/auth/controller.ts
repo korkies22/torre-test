@@ -34,12 +34,23 @@ export const login = async function (
       }
     }
 
+    const response = await fetch(`https://bio.torre.co/api/bios/${username}`, {
+      method: 'GET',
+    })
+    if (!response.ok) {
+      throw {
+        message: 'User must exist in Torre.co',
+        statusCode: 403,
+      }
+    }
+
     const token = await createToken(user.username)
     res.send({
       username: user.username,
       token,
       tokenTimeout: 12,
       refreshToken: user.refreshToken,
+      user: (await response.json()).person,
     })
   } catch (e) {
     if (!e.statusCode) {
