@@ -19,7 +19,30 @@
     align-items: center;
   }
 
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__loading {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+
+    &--message {
+      margin-top: 0;
+    }
+  }
+
   &__main {
+    @include scrollable;
+
     padding: 2rem;
     background: $black;
     height: 45rem;

@@ -19,6 +19,14 @@
       @removeUser="removeMember(index)"
     >
     </UserCard>
+    <h2 v-if="$props.group.opportunities.length > 0">Opportunities</h2>
+    <OpportunityCard
+      v-for="(opportunity, index) in $props.group.opportunities"
+      :key="index"
+      :index="index"
+      :opportunity="opportunity"
+    >
+    </OpportunityCard>
   </div>
 </template>
 

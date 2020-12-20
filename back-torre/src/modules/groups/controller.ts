@@ -1,14 +1,15 @@
-import { checkMember } from '@util/torre'
+import { checkMember, searchOpportunity } from '@util/torre'
 import express from 'express'
 export const router = express.Router()
 import * as queries from './queries'
 import { validationErrorHandler } from './validator'
 
 /**
- * Creates a group in my group app
+ * Creates a group consisting of a name, members and optionally a description and video
  * @param req.body.name group name
  * @param req.body.description group description (Optional)
  * @param req.body.members List of group members, they must exist in Torre.co
+ * @param req.file group video, in order to showcase the group (Optional)
  */
 export const createGroup = async function (
   req: express.Request,
@@ -72,6 +73,79 @@ export const createGroup = async function (
 }
 
 /**
+ * Adds an opportunity to a group
+ * @param req.body.groupId group id
+ * @param req.body.opportunityId opportunity ID (Given by torre)
+ */
+export const addOpportunity = async function (
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  validationErrorHandler(req)
+  try {
+    const groupId = req.body.groupId
+    const opportunityId = req.body.opportunityId
+
+    const group = await queries.findGroupById(groupId)
+
+    if (!group) {
+      throw {
+        message: "The group with that id doesn't exists",
+        statusCode: 403,
+      }
+    }
+
+    let found = false
+    for (const member of group.members) {
+      if (member === req.user!) {
+        found = true
+        break
+      }
+    }
+    if (!found) {
+      throw { message: 'You are not part of that group', statusCode: 403 }
+    }
+
+    found = false
+    for (const opportunitiy of group.opportunities) {
+      if (opportunitiy === opportunityId) {
+        found = true
+        break
+      }
+    }
+    if (found) {
+      throw {
+        message: 'The group has already applied to this job',
+        statusCode: 422,
+      }
+    }
+
+    try {
+      await searchOpportunity(opportunityId)
+    } catch (err) {
+      throw {
+        message: `An opportunity with id ${opportunityId} was not found`,
+        statusCode: 422,
+      }
+    }
+
+    group.opportunities.push(opportunityId)
+    await group.save()
+
+    res.send(group)
+  } catch (e) {
+    if (!e.statusCode) {
+      throw {
+        message:
+          'There has been a problem while creating the group. Please try again later',
+      }
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
  * Gets groups in which the current user is a member
  */
 export const getGroups = async function (
@@ -111,15 +185,26 @@ export const getGroupById = async function (
       throw { message: 'You are not part of that group', statusCode: 401 }
     }
 
-    const promises: Promise<any>[] = []
+    let promises: Promise<any>[] = []
     for (const member of group.members) {
       promises.push(checkMember(member))
     }
 
     const richMembers = await Promise.all(promises)
 
+    promises = []
+    for (const opportunity of group.opportunities) {
+      promises.push(searchOpportunity(opportunity))
+    }
+
+    const richOpportunities = await Promise.all(promises)
+
     group = group.toJSON()
-    res.send({ ...group, members: richMembers })
+    res.send({
+      ...group,
+      members: richMembers,
+      opportunities: richOpportunities,
+    })
   } catch (e) {
     if (!e.statusCode) {
       throw {

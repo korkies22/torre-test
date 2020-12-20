@@ -19,6 +19,7 @@ export const createGroup = async (
     members,
     totalWeight,
     videoURL,
+    opportunities: [],
   })
 }
 

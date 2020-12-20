@@ -12,10 +12,16 @@ exitosamente -->
           Choose the perfect group that fits with this job
         </p>
         <p v-if="errorMsg" class="modal__error">{{ errorMsg }}</p>
+
         <GroupsList
+          v-if="!isLoading"
           class="modal__list"
           @groupClicked="setStep(1, $event)"
         ></GroupsList>
+        <div v-else class="modal__loading">
+          <div class="spinner"></div>
+          <p class="modal__loading--message">Fetching group data...</p>
+        </div>
       </div>
       <div v-if="step === 1 && curGroup" class="modal__content">
         <div class="modal__header">
@@ -35,7 +41,8 @@ exitosamente -->
         <button class="modal__button" @click="applyWithGroup">
           Apply with group
         </button>
-        <GroupDetail :error-msg="errorMsg" :group="curGroup"></GroupDetail>
+        <p v-if="errorMsg" class="modal__error">{{ errorMsg }}</p>
+        <GroupDetail :group="curGroup"></GroupDetail>
       </div>
       <div v-else-if="step === 1" class="modal__content">
         <div class="modal__header">
@@ -58,7 +65,7 @@ export default {
   components: { GroupsList, GroupDetail },
   props: { opportunity: { type: Object, required: true } },
   data() {
-    return { step: 0, errorMsg: null }
+    return { step: 0, errorMsg: null, isLoading: false }
   },
   computed: {
     curGroup() {
@@ -76,16 +83,30 @@ export default {
   },
   methods: {
     async setStep(step, group) {
+      this.errorMsg = null
       try {
         if (step === 1) {
+          this.isLoading = true
           await this.$store.dispatch('groups/fetchGroup', group._id)
         }
         this.step = step
       } catch (e) {
         this.errorMsg = parseError(e)
       }
+      this.isLoading = false
     },
-    applyWithGroup() {},
+    async applyWithGroup() {
+      try {
+        const group = await this.$axios.$post('groups/opportunity', {
+          groupId: this.curGroup._id,
+          opportunityId: this.$props.opportunity.id,
+        })
+        await this.$store.dispatch('groups/addGroup', group._id)
+        this.$router.push(`groups/${group._id}`)
+      } catch (e) {
+        this.errorMsg = parseError(e)
+      }
+    },
     close() {
       this.$emit('close')
     },
@@ -96,16 +117,10 @@ export default {
 <style lang="scss" scoped>
 .modal {
   @include modal;
+  @include error;
 
   &__button {
     @include button;
-  }
-
-  &__content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   &__header {

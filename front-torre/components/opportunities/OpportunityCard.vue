@@ -23,6 +23,7 @@
         </div>
       </div>
       <button
+        v-if="$props.appliable"
         class="opportunityCard__button"
         :disabled="opportunity.status !== 'open'"
         @click="$emit('applyToOpportunity')"
@@ -37,6 +38,7 @@
 export default {
   props: {
     opportunity: { type: Object, required: true },
+    appliable: { type: Boolean, default: false },
   },
   computed: {
     parsedDate() {
@@ -89,6 +91,7 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-end;
+    width: 40%;
     max-width: 70%;
     height: 4rem;
   }

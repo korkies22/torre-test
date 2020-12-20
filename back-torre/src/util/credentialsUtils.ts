@@ -19,7 +19,6 @@ export async function tokenVerifier(req: express.Request): Promise<string> {
   const username = (await new Promise((resolve) => {
     jwt.verify(token, process.env.privateKey, function (err, decoded) {
       if (err) {
-        console.log(err)
         throw { message: 'Invalid Token', statusCode: 401 }
       } else {
         resolve(decoded.username)

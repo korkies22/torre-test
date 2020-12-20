@@ -28,7 +28,6 @@ export const searchOpportunities = async (
       },
     }
   }
-  console.log(page, size)
   const response = await fetch(
     `https://search.torre.co/opportunities/_search/?&lang=en&size=${size}&aggregate=false&offset=${
       page * size
@@ -56,4 +55,14 @@ export const searchOpportunities = async (
     }
   }
   return (await response.json()).results
+}
+
+export const searchOpportunity = async (id: string): Promise<any[]> => {
+  const response = await fetch(`https://torre.co/api/opportunities/${id}`)
+  if (!response.ok) {
+    throw {
+      message: `Unable to fetch the opportunity. Try again later`,
+    }
+  }
+  return response.json()
 }

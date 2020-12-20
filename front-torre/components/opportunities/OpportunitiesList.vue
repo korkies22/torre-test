@@ -11,6 +11,7 @@
         :key="index"
         :index="index"
         :opportunity="opportunity"
+        :appliable="true"
         @applyToOpportunity="openModal(opportunity)"
       >
       </OpportunityCard>
@@ -19,7 +20,7 @@
     <infinite-loading ref="infiniteLoading" @infinite="infiniteHandler">
       <div slot="spinner"><div class="loadingSpinner"></div></div>
       <div slot="error" slot-scope="{ trigger }" style="margin: 1rem 0">
-        There has been an error. Try again later
+        There has been an error.
         <a href="javascript:;" @click="trigger">Click</a> to try again
       </div>
       <div slot="no-more" style="margin: 1rem 0">
@@ -64,6 +65,10 @@ export default {
         this.$refs.infiniteLoading.stateChanger.reset()
       }
     },
+  },
+  // I made this reload intentional so that the user always has the latest opportunities
+  mounted() {
+    this.$store.dispatch('opportunities/resetList')
   },
   methods: {
     openModal(opportunity) {

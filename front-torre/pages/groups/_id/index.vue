@@ -17,7 +17,8 @@ Here people create groups with their colleagues -->
         </div>
         <span class="groupPage__filler"></span>
       </div>
-      <GroupDetail :error-msg="errorMsg" :group="group"></GroupDetail>
+      <p v-if="errorMsg" class="groupPage__error">{{ errorMsg }}</p>
+      <GroupDetail :group="group"></GroupDetail>
     </div>
   </div>
 </template>
@@ -57,6 +58,7 @@ export default {
 .groupPage {
   @include page;
   @include subPage;
+  @include error;
 
   &__icon {
     width: 2.5rem;

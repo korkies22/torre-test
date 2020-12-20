@@ -3,7 +3,7 @@ import express from 'express'
 import { body, ValidationChain, validationResult } from 'express-validator'
 import { Middleware } from 'express-validator/src/base'
 export const validate = (
-  method: 'create'
+  method: 'create' | 'opportunity'
 ): Array<ValidationChain | Middleware> => {
   switch (method) {
     case 'create': {
@@ -16,6 +16,12 @@ export const validate = (
           .exists()
           .isString()
           .withMessage('Members should be an array of strings'),
+      ]
+    }
+    case 'opportunity': {
+      return [
+        body('groupId', 'You must enter a valid member array').exists(),
+        body('opportunityId', 'You must enter a valid name').exists(),
       ]
     }
   }

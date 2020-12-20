@@ -12,6 +12,7 @@ const GroupSchema = new Schema(
     name: { type: String, required: true },
     description: { type: String, required: false },
     members: [{ type: String, required: true }],
+    opportunities: { type: Array, default: [] },
     totalWeight: { type: Number, required: true },
     videoURL: { type: String, required: false },
   },

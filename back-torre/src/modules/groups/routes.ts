@@ -17,3 +17,17 @@ router.post(
 router.get('/:id', verifyUser, exceptionHandler(groups.getGroupById))
 
 router.get('/', verifyUser, exceptionHandler(groups.getGroups))
+
+router.post(
+  '/opportunity',
+  validate('opportunity'),
+  verifyUser,
+  exceptionHandler(groups.addOpportunity)
+)
+
+router.post(
+  '/',
+  validate('create'),
+  verifyUser,
+  exceptionHandler(groups.getGroups)
+)

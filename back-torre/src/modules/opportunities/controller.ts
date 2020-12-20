@@ -26,9 +26,8 @@ export const getOpportunities = async function (
     )
     res.send(result)
   } catch (e) {
-    console.log(e)
     if (!e.statusCode) {
-      throw new Error('Ha ocurrido un problema buscando las facturas')
+      throw new Error('There has been a problem searching opportunities')
     } else {
       throw e
     }
