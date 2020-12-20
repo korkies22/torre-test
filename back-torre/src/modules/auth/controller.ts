@@ -4,6 +4,7 @@ import {
   createToken,
   hashPassword,
 } from '@util/credentialsUtils'
+import { checkMember } from '@util/torre'
 import express from 'express'
 export const router = express.Router()
 import * as queries from './queries'
@@ -34,15 +35,7 @@ export const login = async function (
       }
     }
 
-    const response = await fetch(`https://bio.torre.co/api/bios/${username}`, {
-      method: 'GET',
-    })
-    if (!response.ok) {
-      throw {
-        message: 'User must exist in Torre.co',
-        statusCode: 403,
-      }
-    }
+    const person = await checkMember(username)
 
     const token = await createToken(user.username)
     res.send({
@@ -50,7 +43,7 @@ export const login = async function (
       token,
       tokenTimeout: 12,
       refreshToken: user.refreshToken,
-      user: (await response.json()).person,
+      user: person,
     })
   } catch (e) {
     if (!e.statusCode) {
@@ -83,15 +76,7 @@ export const createUser = async function (
       throw { message: 'User already exists', statusCode: 422 }
     }
 
-    const response = await fetch(`https://bio.torre.co/api/bios/${username}`, {
-      method: 'GET',
-    })
-    if (!response.ok) {
-      throw {
-        message: 'User must exist in Torre.co',
-        statusCode: 403,
-      }
-    }
+    await checkMember(username)
     password = await hashPassword(password)
     const refreshToken = await createRefreshToken()
     user = await queries.createUser(username, password, refreshToken)

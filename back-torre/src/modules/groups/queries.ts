@@ -1,21 +1,21 @@
 import mongoose, { ClientSession } from 'mongoose'
-import users from '@util/models/users'
-import IUser from '@util/models/IUser'
+import groups from '@util/models/groups'
+import IGroup from '@util/models/IGroup'
 
-export const findUser = async (username): Promise<IUser | null> => {
-  return await users.findOne({ username }).exec()
+export const findGroup = async (name): Promise<IGroup | null> => {
+  return await groups.findOne({ name }).exec()
 }
 
-export const createUser = async (
-  username,
-  password: string,
-  refreshToken: string
-): Promise<IUser> => {
-  return await users.create({ username, password, refreshToken })
+export const createGroup = async (
+  name: string,
+  members: string[],
+  description: string | null
+): Promise<IGroup> => {
+  return await groups.create({ name, description, members })
 }
 
-export const findUsers = async (usernames: string[]): Promise<IUser[]> => {
-  return await users.find({ username: { $in: usernames } }).exec()
+export const findGroups = async (groupnames: string[]): Promise<IGroup[]> => {
+  return await groups.find({ groupname: { $in: groupnames } }).exec()
 }
 
 // Devuelve un objeto clientSession, el cual representa una transacción

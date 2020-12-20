@@ -11,7 +11,7 @@ Here people create groups with their colleagues -->
         <h1 class="createGroupPage__title">Create new group</h1>
         <span class="createGroupPage__filler"></span>
       </div>
-      <CreateGroupForm></CreateGroupForm>
+      <CreateGroupForm @createGroup="createGroup"></CreateGroupForm>
     </div>
   </div>
 </template>
@@ -22,6 +22,11 @@ export default {
   components: { CreateGroupForm },
   middleware: ['init-auth', 'authenticated'],
   layout: 'main',
+  methods: {
+    createGroup(groupInfo) {
+      console.log(groupInfo)
+    },
+  },
 }
 </script>
 

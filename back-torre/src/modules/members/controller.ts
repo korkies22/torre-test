@@ -1,3 +1,4 @@
+import { checkMember } from '@util/torre'
 import express from 'express'
 export const router = express.Router()
 import { validationErrorHandler } from './validator'
@@ -14,13 +15,9 @@ export const checkUserTorre = async function (
   validationErrorHandler(req)
   try {
     const username = req.query.user
-    const response = await fetch(`https://bio.torre.co/api/bios/${username}`, {
-      method: 'GET',
-    })
-    if (!response.ok) {
-      res.send(null)
-    }
-    res.send((await response.json()).person)
+    const person = await checkMember(username)
+
+    res.send(person)
   } catch (e) {
     if (!e.statusCode) {
       throw {

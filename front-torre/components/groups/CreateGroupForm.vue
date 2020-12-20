@@ -57,10 +57,10 @@
       >
       </UserCard>
     </div>
+    <p v-if="errorMsg" class="createGroupForm__error">{{ errorMsg }}</p>
     <button class="createGroupForm__button" @click="createGroup">
       Create group
     </button>
-    <p v-if="errorMsg" class="createGroupForm__error">{{ errorMsg }}</p>
   </form>
 </template>
 
@@ -84,7 +84,16 @@ export default {
       this.errorMsg = null
       try {
         if (this.curMemberName === this.$store.getters['auth/username']) {
-          this.errorMsg = 'You cannot add yourself'
+          this.errorMsg = 'You are already part of your group'
+          return
+        }
+
+        const existingMember = this.members.find(
+          (member) => member.publicId === this.curMemberName
+        )
+
+        if (existingMember) {
+          this.errorMsg = 'Member is already in group'
           return
         }
 
@@ -102,9 +111,28 @@ export default {
       }
     },
     removeMember(index) {
+      this.errorMsg = null
       this.members.splice(index, 1)
     },
-    async createGroup() {},
+    createGroup() {
+      this.errorMsg = null
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        return
+      }
+      console.log(this.members.length)
+      if (this.members.length === 0) {
+        this.errorMsg = 'Group must have at least 1 additional member'
+      }
+      const members = this.members.map((member) => {
+        return member.publicId
+      })
+      this.$emit('createGroup', {
+        name: this.name,
+        description: this.description,
+        members,
+      })
+    },
   },
   validations: {
     name: {
@@ -124,8 +152,12 @@ export default {
   @include formItem;
 
   &__button {
-    margin-top: 1.5rem;
     padding: 0.6rem 2rem;
+    margin-top: 1rem;
+  }
+
+  &__error {
+    margin-bottom: 1rem;
   }
 }
 </style>

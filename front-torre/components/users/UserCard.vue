@@ -1,13 +1,17 @@
 <template>
   <div class="userCard">
     <div class="userCard__card" :class="{ removable }">
-      <div class="userCard__photo--container">
-        <div class="userCard__photo--background" />
-        <img class="userCard__photo" :src="user.picture" />
+      <div class="userCard__left">
+        <div class="userCard__photo--container">
+          <div class="userCard__photo--background" />
+          <img class="userCard__photo" :src="user.picture" />
+        </div>
+        <h3 class="userCard__name">{{ user.name }}</h3>
       </div>
+
       <div class="userCard__info">
-        <div class="userCard__headline">{{ user.professionalHeadline }}</div>
-        <div class="userCard__weight">Weight: {{ parseInt(user.weight) }}</div>
+        <div class="userCard__line">{{ user.professionalHeadline }}</div>
+        <div class="userCard__line">Weight: {{ parseInt(user.weight) }}</div>
       </div>
     </div>
     <p
@@ -35,6 +39,7 @@ export default {
   display: flex;
   align-items: center;
   width: 100%;
+
   &__card {
     padding: 1rem;
     border-radius: 3px;
@@ -46,6 +51,20 @@ export default {
     &.removable {
       margin-right: 1rem;
     }
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+
+  &__line {
+    text-align: right;
+  }
+
+  &__name {
+    max-width: 50%;
+    margin-left: 0.5rem;
   }
 
   &__remove {
