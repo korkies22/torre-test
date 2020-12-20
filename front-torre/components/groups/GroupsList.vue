@@ -1,8 +1,12 @@
 <template>
   <div class="groupsList">
-    <GroupCard v-for="group in groups" :key="group._id" :group="group">{{
-      group
-    }}</GroupCard>
+    <GroupCard
+      v-for="group in groups"
+      :key="group._id"
+      :group="group"
+      @cardClicked="$emit('groupClicked', group)"
+      >{{ group }}</GroupCard
+    >
   </div>
 </template>
 

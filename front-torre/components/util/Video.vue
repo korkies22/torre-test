@@ -2,6 +2,8 @@
   <div class="videoViewer">
     <div
       v-video-player:myVideoPlayer="videoOptions"
+      data-setup='{"fluid": true}'
+      class="video-js vjs-default-skin videoViewer__video"
       :playsinline="true"
       @click="$emit('videoClicked')"
     />
@@ -54,3 +56,23 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.videoViewer {
+  width: 100%;
+  max-width: 100%;
+
+  &__video {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+  }
+}
+</style>
+
+<style lang="scss">
+.video-js {
+  width: 100%;
+  max-width: 100%;
+}
+</style>

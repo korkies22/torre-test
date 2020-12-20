@@ -8,8 +8,10 @@ Here people see the groups they're part in and can create new groups -->
       <div class="circle">+</div>
       <p class="groupsPage__create--text">Create group</p>
     </div>
-    <GroupsList></GroupsList>
-    <p v-if="errorMsg">{{ errorMsg }}</p>
+    <p v-if="errorMsg" class="groupsPage__error">{{ errorMsg }}</p>
+    <GroupsList
+      @groupClicked="($event) => $router.push(`/groups/${$event._id}`)"
+    ></GroupsList>
   </div>
 </template>
 

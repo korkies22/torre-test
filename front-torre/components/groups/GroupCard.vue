@@ -1,5 +1,5 @@
 <template>
-  <div class="groupCard" @click="$router.push(`/groups/${group._id}`)">
+  <div class="groupCard" @click="$emit('cardClicked')">
     <div class="groupCard__card">
       <div class="groupCard__left">
         <h3 class="groupCard__name">{{ group.name }}</h3>

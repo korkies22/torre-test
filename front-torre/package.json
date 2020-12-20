@@ -21,6 +21,7 @@
     "recordrtc": "^5.6.1",
     "video.js": "^7.10.2",
     "videojs-record": "^4.1.1",
+    "vue-infinite-loading": "^2.4.5",
     "vue-video-player": "^5.0.2",
     "vuelidate": "^0.7.6"
   },
