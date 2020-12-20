@@ -7,6 +7,9 @@ declare global {
       DB_HOST: string
       BACK_URL: string
       NODE_ENV: 'development' | 'production'
+      CLOUDINARY_CLOUD_NAME: string
+      CLOUDINARY_API_KEY: string
+      CLOUDINARY_SECRET: string
     }
   }
   namespace Express {

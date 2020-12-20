@@ -9,18 +9,33 @@ Here people see the groups they're part in and can create new groups -->
       <p class="groupsPage__create--text">Create group</p>
     </div>
     <GroupsList></GroupsList>
+    <p v-if="errorMsg">{{ errorMsg }}</p>
   </div>
 </template>
 
 <script>
 import GroupsList from '@/components/groups/GroupsList'
+import { parseError } from '~/utils/error'
 export default {
   components: { GroupsList },
+  async fetch({ $axios, store }) {
+    this.errorMsg = null
+    try {
+      store.dispatch('groups/resetList')
+      await store.dispatch('groups/fetchGroups')
+    } catch (e) {
+      this.errorMsg = parseError(e)
+    }
+  },
+  data() {
+    return { errorMsg: null }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .groupsPage {
+  @include error;
   display: flex;
   flex-direction: column;
   &__create {

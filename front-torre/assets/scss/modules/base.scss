@@ -30,6 +30,24 @@ body {
   }
 }
 
+// Required in order to show video icons correctly
+.video-js {
+  *,
+  *:before,
+  *:after {
+    font-family: VideoJS;
+  }
+}
+
+// Required in order to show video icons correctly
+.vjs-record {
+  *,
+  *:before,
+  *:after {
+    font-family: inherit;
+  }
+}
+
 .circle {
   color: $black;
   border-radius: 50%;

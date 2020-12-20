@@ -16,7 +16,12 @@
     "@nuxtjs/pwa": "^3.0.2",
     "@nuxtjs/style-resources": "^1.0.0",
     "core-js": "^3.6.5",
+    "font-awesome": "^4.7.0",
     "nuxt": "^2.14.6",
+    "recordrtc": "^5.6.1",
+    "video.js": "^7.10.2",
+    "videojs-record": "^4.1.1",
+    "vue-video-player": "^5.0.2",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {

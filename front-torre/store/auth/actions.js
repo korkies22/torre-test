@@ -38,7 +38,7 @@ const refreshData = (
   return axios
     .$post(`auth/refreshToken`, {
       username: username || getters.username,
-      refreshToken: refreshToken || getters.token.refreshToken,
+      refreshToken: refreshToken || getters.refreshToken,
     })
     .then((refreshedData) => {
       // Info gets persisted

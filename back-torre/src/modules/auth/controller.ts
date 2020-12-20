@@ -35,7 +35,7 @@ export const login = async function (
       }
     }
 
-    const person = await checkMember(username)
+    const torreUser = await checkMember(username)
 
     const token = await createToken(user.username)
     res.send({
@@ -43,7 +43,7 @@ export const login = async function (
       token,
       tokenTimeout: 12,
       refreshToken: user.refreshToken,
-      user: person,
+      user: torreUser,
     })
   } catch (e) {
     if (!e.statusCode) {
@@ -76,13 +76,19 @@ export const createUser = async function (
       throw { message: 'User already exists', statusCode: 422 }
     }
 
-    await checkMember(username)
+    const torreUser = await checkMember(username)
     password = await hashPassword(password)
     const refreshToken = await createRefreshToken()
     user = await queries.createUser(username, password, refreshToken)
 
     const token = await createToken(user.username)
-    res.send({ username: user.username, token, tokenTimeout: 12, refreshToken })
+    res.send({
+      username: user.username,
+      token,
+      tokenTimeout: 12,
+      refreshToken,
+      user: torreUser,
+    })
   } catch (e) {
     if (!e.statusCode) {
       throw {
@@ -118,12 +124,15 @@ export const refreshToken = async function (
         statusCode: 401,
       }
     }
+    const torreUser = await checkMember(user)
+
     const token = await createToken(user.username)
     res.send({
       username: user.username,
       token,
       tokenTimeout: 12,
       refreshToken: user.refreshToken,
+      user: torreUser,
     })
   } catch (e) {
     if (!e.statusCode) {
