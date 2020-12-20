@@ -124,7 +124,7 @@ export const refreshToken = async function (
         statusCode: 401,
       }
     }
-    const torreUser = await checkMember(user)
+    const torreUser = await checkMember(req.body.username)
 
     const token = await createToken(user.username)
     res.send({

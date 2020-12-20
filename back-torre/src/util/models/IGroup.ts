@@ -5,4 +5,5 @@ export default interface IGroup extends Document {
   description: string | null
   members: [string]
   totalWeight: number
+  videoURL: string | null
 }

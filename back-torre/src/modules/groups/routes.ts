@@ -8,6 +8,7 @@ export const router = express.Router()
 
 router.post(
   '/',
+  verifyUser,
   upload.single('file'),
   validate('create'),
   exceptionHandler(auth.createGroup)

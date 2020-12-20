@@ -71,6 +71,8 @@ export default {
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
+    margin-left: 2rem;
+    margin-right: 1rem;
   }
 
   &__info {

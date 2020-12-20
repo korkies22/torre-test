@@ -10,6 +10,7 @@
           : "This group doesn't have a description"
       }}
     </p>
+    <Video v-if="group.videoURL" :file-u-r-l="group.videoURL"></Video>
     <h2>Members</h2>
     <UserCard
       v-for="(member, index) in $props.group.members"
@@ -22,9 +23,10 @@
 </template>
 
 <script>
+import Video from '@/components/util/Video'
 import UserCard from '@/components/users/UserCard'
 export default {
-  components: { UserCard },
+  components: { UserCard, Video },
   props: { group: { type: Object, required: true } },
 }
 </script>

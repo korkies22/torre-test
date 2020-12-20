@@ -18,7 +18,7 @@ export const createGroup = async function (
   try {
     const name = req.body.name
     const description = req.body.description ? req.body.description : ''
-    let members = req.body.members
+    let members = req.body.members.split(',')
 
     const promises: Promise<any>[] = []
     const set = new Set<string>()
@@ -50,11 +50,13 @@ export const createGroup = async function (
       return accum + member.weight
     }, 0)
 
+    const videoURL = req.file ? req.file.path : null
     const group = await queries.createGroup(
       name,
       description,
       members,
-      totalWeight
+      totalWeight,
+      videoURL
     )
     res.send(group)
   } catch (e) {

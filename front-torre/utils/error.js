@@ -1,12 +1,12 @@
 // Recibe un erorr por parámetro y asigna una respuesta en texto dependiendo del tipo de error
 export const parseError = (err) => {
   console.log(err)
-  let errorMsg = 'Revisa tu conexión a internet o intentalo más tarde'
+  let errorMsg = 'Check your internet connection or try again later'
   if (err.response) {
     if (+err.response.status < 500) {
       errorMsg = err.response.data.message
     } else {
-      errorMsg = 'Ocurrió un problema interno, intentalo más tarde'
+      errorMsg = 'There has been an internal problem, try again later'
     }
   }
   return errorMsg

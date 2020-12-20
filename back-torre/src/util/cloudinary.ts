@@ -13,6 +13,8 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'torre-test',
+    // @ts-ignore Has to do this because the package doesnt recognize it. Already set the issue
+    resource_type: 'video',
   },
 })
 

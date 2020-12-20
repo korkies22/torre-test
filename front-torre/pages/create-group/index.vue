@@ -37,9 +37,16 @@ export default {
     async createGroup(groupInfo) {
       this.errorMsg = null
       try {
-        const group = await this.$axios.$post('groups', groupInfo)
+        const formData = new FormData()
+        for (const [key, value] of Object.entries(groupInfo)) {
+          formData.append(key, value)
+        }
+        formData.append('resource_type', 'video')
+        const group = await this.$axios.$post('groups', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
         this.$store.dispatch('groups/addGroup', group)
-        this.$router.push('/groups')
+        this.$router.push(`/groups/${group._id}`)
       } catch (err) {
         this.errorMsg = parseError(err)
       }

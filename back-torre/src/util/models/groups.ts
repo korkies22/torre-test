@@ -13,6 +13,7 @@ const GroupSchema = new Schema(
     description: { type: String, required: false },
     members: [{ type: String, required: true }],
     totalWeight: { type: Number, required: true },
+    videoURL: { type: String, required: false },
   },
   { autoIndex }
 )

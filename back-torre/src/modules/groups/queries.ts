@@ -10,9 +10,16 @@ export const createGroup = async (
   name: string,
   description: string | null,
   members: string[],
-  totalWeight: number
+  totalWeight: number,
+  videoURL: string | null
 ): Promise<IGroup> => {
-  return await groups.create({ name, description, members, totalWeight })
+  return await groups.create({
+    name,
+    description,
+    members,
+    totalWeight,
+    videoURL,
+  })
 }
 
 export const getGroupsFromUser = async (
