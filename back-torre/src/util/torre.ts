@@ -38,14 +38,7 @@ export const searchOpportunities = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        and: [
-          {
-            bestfor: {
-              username,
-            },
-          },
-          roleData,
-        ],
+        and: [roleData],
       }),
     }
   )
