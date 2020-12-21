@@ -14,11 +14,14 @@ exitosamente -->
         <p v-if="errorMsg" class="modal__error">{{ errorMsg }}</p>
 
         <GroupsList
-          v-if="!isLoading"
+          v-if="!isLoading && filteredGroups.length > 0"
           class="modal__list"
           :groups="filteredGroups"
           @groupClicked="setStep(1, $event)"
         ></GroupsList>
+        <p v-else-if="!isLoadin">
+          Looks like you have no groups that haven't applied to this job
+        </p>
         <div v-else class="modal__loading">
           <div class="spinner"></div>
           <p class="modal__loading--message">Fetching group data...</p>
