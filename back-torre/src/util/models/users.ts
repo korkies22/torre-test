@@ -1,5 +1,6 @@
 import { Schema, Document, PaginateModel } from 'mongoose'
-import mongoosePaginate from 'mongoose-paginate-v2'
+import * as mongoosePaginate from 'mongoose-paginate'
+
 import IUser from './IUser'
 
 import mongoose from 'mongoose'
