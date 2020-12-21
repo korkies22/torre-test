@@ -31,6 +31,7 @@ export default {
     }
   },
   data() {
+    // errorMsg is not empty so that initially it doesn't render anything
     return { errorMsg: ' ' }
   },
   computed: {
