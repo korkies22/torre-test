@@ -15,7 +15,7 @@ declare global {
   namespace Express {
     interface Request {
       user?: string // Used when auth
-      file?: any // Used with multer
+      file: Multer.File // Used with multer
     }
   }
   interface AuthUser {
