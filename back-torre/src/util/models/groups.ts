@@ -1,5 +1,4 @@
-import { Schema, Document } from 'mongoose'
-import { PaginateModel } from 'mongoose'
+import { Schema, Document, PaginateModel } from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate-v2'
 import IGroup from './IGroup'
 
