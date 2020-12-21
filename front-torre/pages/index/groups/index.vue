@@ -24,7 +24,7 @@ export default {
   async fetch() {
     try {
       this.$store.dispatch('groups/resetList')
-      await this.store.dispatch('groups/fetchGroups')
+      await this.$store.dispatch('groups/fetchGroups')
       this.errorMsg = null
     } catch (e) {
       this.errorMsg = parseError(e)
