@@ -1,5 +1,4 @@
-import { Schema, Document, PaginateModel } from 'mongoose'
-import * as mongoosePaginate from 'mongoose-paginate'
+import { Schema, Document, Model } from 'mongoose'
 import IGroup from './IGroup'
 
 import mongoose from 'mongoose'
@@ -20,9 +19,8 @@ const GroupSchema = new Schema(
 
 // Index on the groupname for fast searching and pagination in order to return many
 GroupSchema.index({ groupname: 1 })
-GroupSchema.plugin(mongoosePaginate)
 
-type GroupModel<T extends Document> = PaginateModel<T>
+type GroupModel<T extends Document> = Model<T>
 
 // Export the model and return your IGroup interface
 export default (mongoose.models.groups as GroupModel<IGroup>) ||

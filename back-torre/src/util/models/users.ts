@@ -1,5 +1,4 @@
-import { Schema, Document, PaginateModel } from 'mongoose'
-import * as mongoosePaginate from 'mongoose-paginate'
+import { Schema, Document, Model } from 'mongoose'
 
 import IUser from './IUser'
 
@@ -18,9 +17,8 @@ const UserSchema = new Schema(
 
 // Index on the username for fast searching and pagination in order to return many
 UserSchema.index({ username: 1 })
-UserSchema.plugin(mongoosePaginate)
 
-type UserModel<T extends Document> = PaginateModel<T>
+type UserModel<T extends Document> = Model<T>
 
 // Export the model and return your IUser interface
 export default (mongoose.models.users as UserModel<IUser>) ||
