@@ -1,1 +1,1 @@
-git subtree push --prefix back-torre heroku master
+git subtree push --prefix back-torre heroku main
