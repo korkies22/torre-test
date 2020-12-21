@@ -15,6 +15,9 @@ export default {
     context.commit('setCurGroup', group)
     return group
   },
+  setCurGroup({ commit }, data) {
+    commit('setCurGroup', data)
+  },
   setGroups({ commit }, data) {
     commit('setGroups', data)
   },

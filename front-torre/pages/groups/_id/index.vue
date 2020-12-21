@@ -25,6 +25,7 @@ Here people create groups with their colleagues -->
 
 <script>
 import GroupDetail from '@/components/groups/GroupDetail'
+import io from 'socket.io-client'
 import { parseError } from '~/utils/error'
 export default {
   components: { GroupDetail },
@@ -39,16 +40,42 @@ export default {
     }
   },
   data() {
-    return { errorMsg: null }
+    return { errorMsg: null, socket: null }
   },
   computed: {
     group() {
       return this.$store.getters['groups/curGroup']
     },
   },
+  created() {
+    this.initWebsocket()
+  },
   methods: {
     setErrorMsg(errorMsg) {
       this.errorMsg = errorMsg
+    },
+    initWebsocket() {
+      const ws = io(this.$store.getters.url + 'group', {
+        widthCredentials: false,
+      })
+      this.socket = ws
+      // event emmited when connected
+      ws.on('connect', () => {
+        ws.emit('groupId', this.$route.params.id)
+      })
+      // event emmited when receiving message
+      const vm = this
+      ws.on('groupData', function (ev) {
+        let parsedGroup
+        try {
+          parsedGroup = JSON.parse(ev)
+          vm.$store.dispatch('groups/addGroup', parsedGroup)
+          vm.$store.dispatch('groups/setCurGroup', parsedGroup)
+        } catch (err) {
+          // I don't know if I should do this in prod. For the moment I'll leave it like this
+          console.log('Received invalid data from socket')
+        }
+      })
     },
   },
 }

@@ -1,8 +1,30 @@
 import { checkMember, searchOpportunity } from '@util/torre'
 import express from 'express'
 export const router = express.Router()
+import eventEmitter from '@util/events'
 import * as queries from './queries'
 import { validationErrorHandler } from './validator'
+import IGroup from '@util/models/IGroup'
+
+//Gets complete group for rendering purposes
+const getCompleteGroup = async (group: IGroup): Promise<any> => {
+  let promises: Promise<any>[] = []
+  for (const member of group.members) {
+    promises.push(checkMember(member))
+  }
+  const richMembers = await Promise.all(promises)
+  promises = []
+  for (const opportunity of group.opportunities) {
+    promises.push(searchOpportunity(opportunity))
+  }
+  const richOpportunities = await Promise.all(promises)
+  group = group.toJSON()
+  return {
+    ...group,
+    members: richMembers,
+    opportunities: richOpportunities,
+  }
+}
 
 /**
  * Creates a group consisting of a name, members and optionally a description and video
@@ -131,13 +153,17 @@ export const addOpportunity = async function (
 
     group.opportunities.push(opportunityId)
     await group.save()
-
     res.send(group)
+
+    eventEmitter.emit(
+      'groupChanged',
+      JSON.stringify(await getCompleteGroup(group))
+    )
   } catch (e) {
     if (!e.statusCode) {
       throw {
         message:
-          'There has been a problem while creating the group. Please try again later',
+          'There has been a problem adding the opportunity to the group. Please try again later',
       }
     } else {
       throw e
@@ -185,26 +211,8 @@ export const getGroupById = async function (
       throw { message: 'You are not part of that group', statusCode: 401 }
     }
 
-    let promises: Promise<any>[] = []
-    for (const member of group.members) {
-      promises.push(checkMember(member))
-    }
-
-    const richMembers = await Promise.all(promises)
-
-    promises = []
-    for (const opportunity of group.opportunities) {
-      promises.push(searchOpportunity(opportunity))
-    }
-
-    const richOpportunities = await Promise.all(promises)
-
-    group = group.toJSON()
-    res.send({
-      ...group,
-      members: richMembers,
-      opportunities: richOpportunities,
-    })
+    group = await getCompleteGroup(group)
+    res.send(group)
   } catch (e) {
     if (!e.statusCode) {
       throw {

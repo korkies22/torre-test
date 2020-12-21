@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     searchOpportunity() {
-      console.log('entra')
       this.$store.dispatch('opportunities/setRole', this.role)
     },
   },

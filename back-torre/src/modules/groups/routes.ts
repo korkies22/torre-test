@@ -31,3 +31,5 @@ router.post(
   verifyUser,
   exceptionHandler(groups.getGroups)
 )
+
+import './socket'
