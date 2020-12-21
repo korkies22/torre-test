@@ -3,7 +3,7 @@ export default function ({ $axios }) {
   const url =
     process.env.NODE_ENV !== 'production'
       ? 'http://localhost:4000/api/'
-      : 'https://MOUNTED.net/api/'
+      : 'https://torre-groups.herokuapp.com/api/'
   // Este NIT debe ser cambiado por cada retailer
   // Se asignan los parámetros para todas las peticiones
   $axios.setBaseURL(url)
