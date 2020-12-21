@@ -51,8 +51,7 @@
     "start": "node dist/server.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec \"npm run typescript\"",
     "typescript": " ts-node -r tsconfig-paths/register --files src/server.ts",
-    "build": "ttsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
-    "deploy": "deploy.sh"
+    "build": "ttsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist"
   },
   "husky": {
     "hooks": {

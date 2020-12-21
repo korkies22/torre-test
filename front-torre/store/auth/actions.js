@@ -61,10 +61,10 @@ export default {
     let rememberMe = localStorage.getItem('rememberMe')
 
     // This condition is for preventing setting the option to false when the page is first loaded
-    if (rememberMe !== null || rememberMe !== undefined) {
+    if (rememberMe !== null && rememberMe !== undefined) {
       rememberMe = rememberMe === 'true' || rememberMe === true
+      commit('setRememberMe', rememberMe)
     }
-    commit('setRememberMe', rememberMe)
 
     // If no data or user was already auth, return
     if (!token || getters.isAuth) {

@@ -1,7 +1,7 @@
 <template>
   <div class="loginPage">
     <div class="loginPage__main">
-      <h1 class="loginPage__title">Join Torre-groups</h1>
+      <h1 class="loginPage__title">Join torre-groups</h1>
       <LoginForm
         :signup="true"
         :error-msg="errorMsg"

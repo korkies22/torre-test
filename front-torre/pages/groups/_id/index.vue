@@ -8,17 +8,17 @@ Here people create groups with their colleagues -->
         <p class="groupPage__arrow" @click="$router.push('/groups')">&larr;</p>
         <div class="groupPage__title--container">
           <h1 class="groupPage__title">
-            {{ group.name }}&nbsp; (<img
+            {{ group ? group.name : 'Invalid group' }}&nbsp; (<img
               class="groupPage__icon"
               :src="require('@/assets/icons/weight.svg')"
             />
-            {{ parseInt(group.totalWeight) }})
+            {{ group ? parseInt(group.totalWeight) : '' }})
           </h1>
         </div>
         <span class="groupPage__filler"></span>
       </div>
       <p v-if="errorMsg" class="groupPage__error">{{ errorMsg }}</p>
-      <GroupDetail :group="group"></GroupDetail>
+      <GroupDetail v-if="!errorMsg" :group="group"></GroupDetail>
     </div>
   </div>
 </template>
@@ -31,16 +31,24 @@ export default {
   components: { GroupDetail },
   middleware: ['init-auth', 'authenticated'],
   layout: 'main',
-  async fetch({ $axios, store, route }) {
-    this.errorMsg = null
+  async fetch() {
     try {
-      await store.dispatch('groups/fetchGroup', route.params.id)
+      const curGroup = await this.$store.dispatch(
+        'groups/fetchGroup',
+        this.$route.params.id
+      )
+      // If group not found, show message
+      if (!curGroup) {
+        this.errorMsg = 'Group not found. Please try again later'
+        return
+      }
+      this.errorMsg = null
     } catch (e) {
       this.errorMsg = parseError(e)
     }
   },
   data() {
-    return { errorMsg: null, socket: null }
+    return { errorMsg: 'init', socket: null }
   },
   computed: {
     group() {

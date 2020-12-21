@@ -204,6 +204,11 @@ export const getGroupById = async function (
   res: express.Response
 ): Promise<void> {
   try {
+    try {
+      queries.getObjectId(req.params.id)
+    } catch (Err) {
+      throw { message: 'The group with that Id doesnt exist', statusCode: 422 }
+    }
     let group = await queries.findGroupById(queries.getObjectId(req.params.id))
     if (!group) {
       throw { message: 'The group with that Id doesnt exist', statusCode: 404 }
@@ -219,7 +224,7 @@ export const getGroupById = async function (
     if (!e.statusCode) {
       throw {
         message:
-          'There has been a problem while fetching groups. Please try again later',
+          'There has been a problem while fetching the group. Please try again later',
       }
     } else {
       throw e

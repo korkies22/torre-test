@@ -21,23 +21,24 @@ import GroupsList from '@/components/groups/GroupsList'
 import { parseError } from '~/utils/error'
 export default {
   components: { GroupsList },
-  async fetch({ $axios, store }) {
-    this.errorMsg = null
+  async fetch() {
     try {
-      store.dispatch('groups/resetList')
-      await store.dispatch('groups/fetchGroups')
+      this.$store.dispatch('groups/resetList')
+      await this.store.dispatch('groups/fetchGroups')
+      this.errorMsg = null
     } catch (e) {
       this.errorMsg = parseError(e)
     }
   },
   data() {
-    return { errorMsg: null }
+    return { errorMsg: 'init' }
   },
   computed: {
     groups() {
       return this.$store.getters['groups/groups']
     },
   },
+  middleware: ['init-auth', 'authenticated'],
 }
 </script>
 

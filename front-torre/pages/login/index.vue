@@ -1,7 +1,7 @@
 <template>
   <div class="loginPage">
     <div class="loginPage__main">
-      <h1 class="loginPage__title">Login to Torre-groups</h1>
+      <h1 class="loginPage__title">Login to torre-groups</h1>
       <LoginForm :error-msg="errorMsg" @login="loginUser"></LoginForm>
       <nuxt-link class="loginPage__navigate" to="/signup"
         >New? Create user!</nuxt-link

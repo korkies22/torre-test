@@ -117,7 +117,7 @@ export default {
           `members/checkTorre?user=${this.curMemberName}`
         )
         if (!user) {
-          this.$emit('error', 'User not found in Torre.co')
+          this.$emit('error', 'User not found in torre.co')
           return
         }
         this.members.push(user)

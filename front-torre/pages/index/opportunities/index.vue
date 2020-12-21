@@ -17,7 +17,6 @@ Here people see the available job offers -->
       </button>
     </div>
     <OpportunitiesList></OpportunitiesList>
-    <p v-if="errorMsg">{{ errorMsg }}</p>
   </div>
 </template>
 
@@ -26,13 +25,14 @@ import OpportunitiesList from '@/components/opportunities/OpportunitiesList'
 export default {
   components: { OpportunitiesList },
   data() {
-    return { errorMsg: null, role: '' }
+    return { role: '' }
   },
   methods: {
     searchOpportunity() {
       this.$store.dispatch('opportunities/setRole', this.role)
     },
   },
+  middleware: ['init-auth', 'authenticated'],
 }
 </script>
 
