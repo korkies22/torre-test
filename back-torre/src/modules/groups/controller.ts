@@ -19,9 +19,10 @@ const getCompleteGroup = async (group: IGroup): Promise<any> => {
     promises.push(searchOpportunity(opportunity))
   }
   const richOpportunities = await Promise.all(promises)
-  group = group.toJSON()
+
+  const respGroup = group.toJSON()
   return {
-    ...group,
+    ...respGroup,
     members: richMembers,
     opportunities: richOpportunities,
   }
