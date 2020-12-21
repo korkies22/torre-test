@@ -31,7 +31,7 @@ export default {
     }
   },
   data() {
-    return { errorMsg: 'init' }
+    return { errorMsg: ' ' }
   },
   computed: {
     groups() {

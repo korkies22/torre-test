@@ -48,7 +48,7 @@ export default {
     }
   },
   data() {
-    return { errorMsg: 'init', socket: null }
+    return { errorMsg: ' ', socket: null }
   },
   computed: {
     group() {
