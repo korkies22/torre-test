@@ -1,8 +1,0 @@
-[
-  {
-    "name": "${var.project-name}-container-daily-emails",
-    "image": "${var.repository_url}",
-    "memoryReservation": 512,
-    "essential": true
-  }
-]

@@ -19,7 +19,8 @@
     "mongoose-paginate": "^5.0.3",
     "multer": "^1.4.2",
     "multer-storage-cloudinary": "^4.0.0",
-    "socket.io": "^3.0.4"
+    "socket.io": "^3.0.4",
+    "tscpaths": "0.0.9"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
@@ -50,7 +51,7 @@
     "start": "node dist/server.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec \"npm run typescript\"",
     "typescript": " ts-node -r tsconfig-paths/register --files src/server.ts",
-    "build": "ttsc && babel dist -d dist",
+    "build": "ttsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "deploy": "deploy.sh"
   },
   "husky": {

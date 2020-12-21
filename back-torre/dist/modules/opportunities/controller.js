@@ -1,15 +1,15 @@
 "use strict";
-var __importDefault = this && this.__importDefault || function (mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const torre_1 = require("@util/torre");
+const torre_1 = require("../../util/torre");
 const express_1 = __importDefault(require("express"));
 exports.router = express_1.default.Router();
 /**
-                                              * @description Get the best opportunities for the current user in a paginated way
-                                              * @param req.query Contains information about pagination
-                                              */
+ * @description Get the best opportunities for the current user in a paginated way
+ * @param req.query Contains information about pagination
+ */
 exports.getOpportunities = async function (req, res) {
     try {
         const query = req.query;
@@ -25,8 +25,8 @@ exports.getOpportunities = async function (req, res) {
         console.log(e);
         if (!e.statusCode) {
             throw new Error('There has been a problem searching opportunities');
-        } else
-        {
+        }
+        else {
             throw e;
         }
     }

@@ -1,5 +1,5 @@
 "use strict";
-var __importStar = this && this.__importStar || function (mod) {
+var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
     if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
@@ -13,13 +13,13 @@ let io;
 exports.getIOHandler = () => {
     return io;
 };
-exports.initSocket = http => {
+exports.initSocket = (http) => {
     io = new socketIO.Server(http, {
         cors: {
             origin: '*',
-            methods: ['GET', 'POST'] } });
-
-
+            methods: ['GET', 'POST'],
+        },
+    });
     const sockets = [socket_1.initSocket];
     for (const initSocketT of sockets) {
         initSocketT(io);

@@ -4,7 +4,7 @@ import cors from 'cors'
 require('cross-fetch/polyfill')
 import bodyParser from 'body-parser'
 import { initDB } from './util/mongoose'
-import { initSocket } from '@util/socket-io'
+import { initSocket } from './util/socket-io'
 import { router } from './routes'
 import http from 'http'
 import { exceptionMiddleware } from './util/exceptionMiddleware'

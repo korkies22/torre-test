@@ -1,6 +1,6 @@
 "use strict";
-var __importDefault = this && this.__importDefault || function (mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("./util/envs");
@@ -9,7 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 require('cross-fetch/polyfill');
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = require("./util/mongoose");
-const socket_io_1 = require("@util/socket-io");
+const socket_io_1 = require("./util/socket-io");
 const routes_1 = require("./routes");
 const http_1 = __importDefault(require("http"));
 const exceptionMiddleware_1 = require("./util/exceptionMiddleware");
