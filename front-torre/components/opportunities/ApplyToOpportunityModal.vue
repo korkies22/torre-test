@@ -16,6 +16,7 @@ exitosamente -->
         <GroupsList
           v-if="!isLoading"
           class="modal__list"
+          :groups="filteredGroups"
           @groupClicked="setStep(1, $event)"
         ></GroupsList>
         <div v-else class="modal__loading">
@@ -70,6 +71,15 @@ export default {
   computed: {
     curGroup() {
       return this.$store.getters['groups/curGroup']
+    },
+    // Only groups which havent applied to the current opportunity
+    filteredGroups() {
+      return this.$store.getters['groups/groups'].filter(
+        (group) =>
+          group.opportunities.findIndex(
+            (opportunity) => opportunity === this.$props.opportunity.id
+          ) === -1
+      )
     },
   },
   async created() {

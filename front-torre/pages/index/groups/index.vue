@@ -10,6 +10,7 @@ Here people see the groups they're part in and can create new groups -->
     </div>
     <p v-if="errorMsg" class="groupsPage__error">{{ errorMsg }}</p>
     <GroupsList
+      :groups="groups"
       @groupClicked="($event) => $router.push(`/groups/${$event._id}`)"
     ></GroupsList>
   </div>
@@ -31,6 +32,11 @@ export default {
   },
   data() {
     return { errorMsg: null }
+  },
+  computed: {
+    groups() {
+      return this.$store.getters['groups/groups']
+    },
   },
 }
 </script>

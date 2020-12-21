@@ -14,10 +14,6 @@
 import GroupCard from './GroupCard'
 export default {
   component: { GroupCard },
-  computed: {
-    groups() {
-      return this.$store.getters['groups/groups']
-    },
-  },
+  props: { groups: { type: Array, required: true } },
 }
 </script>

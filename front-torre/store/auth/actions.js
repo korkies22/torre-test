@@ -8,8 +8,8 @@ const handleTokenResp = (data, commit, dispatch, axios, getters) => {
   localStorage.setItem('rememberMe', getters.rememberMe)
   localStorage.setItem('username', data.username)
   localStorage.setItem('user', JSON.stringify(data.user))
-  /** tokenTimeout sets 55 minutes from now so that there are 5 minutes left in where a
-   * request is made before the current token is invalidated */
+  /** tokenTimeout sets 55 minutes from now. The token expires many hours from now.
+   *  But better safe than sorry */
   localStorage.setItem(
     'tokenTimeout',
     new Date(new Date().getTime() + 55 * 60 * 1000)
