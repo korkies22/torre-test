@@ -26,6 +26,7 @@ export const getOpportunities = async function (
     )
     res.send(result)
   } catch (e) {
+    console.log(e)
     if (!e.statusCode) {
       throw new Error('There has been a problem searching opportunities')
     } else {

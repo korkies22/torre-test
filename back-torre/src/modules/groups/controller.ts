@@ -6,7 +6,8 @@ import * as queries from './queries'
 import { validationErrorHandler } from './validator'
 import IGroup from '@util/models/IGroup'
 
-//Gets complete group for rendering purposes
+//Gets "complete" group. This loads the members and opportunities data according to torre api
+// and return the group with these parameters instead of only the string ones
 const getCompleteGroup = async (group: IGroup): Promise<any> => {
   let promises: Promise<any>[] = []
   for (const member of group.members) {
