@@ -31,7 +31,9 @@ body {
 }
 
 // Required in order to show video icons correctly
-.video-js {
+.video-js,
+.video-js .vjs-play-control,
+.video-js .vjs-mute-control {
   *,
   *:before,
   *:after {
