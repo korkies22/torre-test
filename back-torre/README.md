@@ -60,6 +60,9 @@ A .env file is required in the main backend folder with the information of the r
 - BUCKET_NAME: Nombre del bucket en el cual se encuentran alojados los archivos estáticos de la aplicación
 - privateKey: Private key, used for encrypting tokens
 - publicKey: Public key, used for decrypting tokens
+- CLOUDINARY_CLOUD_NAME: The name of the cloudinary repository to store the videos
+- CLOUDINARY_API_KEY: The api key of the cloudinary account
+- CLOUDINARY_SECRET: The secret key of the cloudinary account
 
 In the main folder of the backend you must execute
 

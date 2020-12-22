@@ -1,6 +1,10 @@
-# torre-test
+# torre-groups
 
-Technical test for software developer position at torre.co
+Technical test for software developer position at torre.co.
+The app allows a torre user to create an account, login, create a group with other torre users and apply together to an "opportunity".
+It has features like authorization and token refreshing with jtw, video recording, infinite loading for the opportunities and real time group updating (opportunities in the group, being more specific).
+
+In the back-torre and front-torre folders you can find more information about the technologies used and functioning of the app
 
 # Progress log
 
@@ -43,4 +47,5 @@ Technical test for software developer position at torre.co
 | Some revisions                                                  | Checked the app. Improved some things that prevented errors                                                                                                                                      | Dec 20, 2020 1:20PM  | Dec 20, 2020 2:27PM  |
 | Prepared things for deployment                                  | Built frontend and redirected 404 errors to frontend                                                                                                                                             | Dec 20, 2020 2:28PM  | Dec 20, 2020 2:50PM  |
 | Fixing some things for deployment                               | Some libraries required tweaking in order to be able to compile the deploy                                                                                                                       | Dec 20, 2020 2:50PM  | Dec 20, 2020 4:30PM  |
-| Testing app                                                     | Fixed something about error handling. Been testing error cases while fetching data and the video record feature on my parents mac (I use windows). Overall I changed small things then and there | Dec 20, 2020 4:30PM  | Dec 20, 2020 4:30PM  |
+| Testing app                                                     | Fixed something about error handling. Been testing error cases while fetching data and the video record feature on my parents mac (I use windows). Overall I changed small things then and there | Dec 20, 2020 4:30PM  | Dec 20, 2020 6:43PM  |
+| Final docs                                                      | Decided to leave it like that. I will write some TODOs and what's most important. The motivation and final conclusions                                                                           | Dec 20, 2020 6:44PM  | Dec 20, 2020 PM      |
