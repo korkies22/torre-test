@@ -10,3 +10,4 @@ Here are some ideas that I think, would make the app much better:
 - Optimizing loading, for example with lazy images, lazy components, etc.
 - Of course, investing time in accesibility. Testing accesibility settings for example with axe. This includes the capacity of using the web page only with a keyboard
 - Trying more "error cases"
+- UX things, like showing more spinners and better error messages
